@@ -7,7 +7,7 @@ type ButtonProps = ComponentPropsWithoutRef<"button"> & {
 const Button = ({ text, className, ...props }: ButtonProps) => {
   return (
     <button
-      className={`${className} bg-white text-black font-bold py-3 px-10 rounded-lg hover:scale-105 duration-300 `}
+      className={`${className} bg-white text-black font-bold py-3 px-12 rounded-lg hover:scale-105 duration-300 `}
       {...props}
     >
       {text}
