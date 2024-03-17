@@ -21,7 +21,7 @@ const Hero = () => {
           platforms.
         </p>
         <div>
-          <Button text="Get Started" className="bg-[#00df9a] w-48" />
+          <Button text="Get Started" className="bg-[#00df9a] " />
         </div>
       </div>
     </div>
