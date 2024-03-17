@@ -4,27 +4,34 @@ const Typed = ({ textArray }: { textArray: string[] }) => {
   const [textIndex, setTextIndex] = useState<number>(0);
   const [arrayIndex, setArrayIndex] = useState<number>(0);
   const [isShowCursor, setIsShowCursor] = useState<boolean>(false);
+  const [isDelete, setIsDelete] = useState<boolean>(false);
   const text: string = textArray[arrayIndex];
 
   useEffect(() => {
-    const timerId = setTimeout(
-      () =>
-        setTextIndex((prevTextIndex) => {
-          if (prevTextIndex + 1 > text.length) {
-            if (arrayIndex + 1 >= textArray.length) {
-              setArrayIndex(0);
-            } else {
-              setArrayIndex(arrayIndex + 1);
-            }
-            return 0;
+    const timerId = setTimeout(() => {
+      if (!isDelete) {
+        if (textIndex + 1 > text.length) {
+          setIsDelete(true);
+        } else {
+          setTextIndex(textIndex + 1);
+        }
+      } else {
+        if (textIndex - 1 < 0) {
+          if (arrayIndex + 1 >= textArray.length) {
+            setArrayIndex(0);
+            setTextIndex(0);
+            setIsDelete(false);
           } else {
-            return prevTextIndex + 1;
+            setIsDelete(false);
+            setArrayIndex(arrayIndex + 1);
           }
-        }),
-      300
-    );
+        } else {
+          setTextIndex(textIndex - 1);
+        }
+      }
+    }, 300);
     return () => clearTimeout(timerId);
-  }, [arrayIndex, text.length, textArray.length, textIndex]);
+  }, [arrayIndex, isDelete, text.length, textArray.length, textIndex]);
 
   useEffect(() => {
     const timerId = setInterval(
