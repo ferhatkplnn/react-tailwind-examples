@@ -5,36 +5,36 @@ type TypedProps = {
 };
 
 const Typed = ({ textArray }: TypedProps) => {
-  const [textIndex, setTextIndex] = useState<number>(0);
-  const [arrayIndex, setArrayIndex] = useState<number>(0);
+  const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
+  const [currentArrayIndex, setCurrentArrayIndex] = useState<number>(0);
   const [isShowCursor, setIsShowCursor] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
-  const text: string = textArray[arrayIndex];
+  const text: string = textArray[currentArrayIndex];
 
   useEffect(() => {
     const textLength = text.length;
 
     const timeout = setTimeout(() => {
       if (!isDeleting) {
-        if (textIndex + 1 > textLength) {
+        if (currentTextIndex + 1 > textLength) {
           setIsDeleting(true);
         } else {
-          setTextIndex(textIndex + 1);
+          setCurrentTextIndex(currentTextIndex + 1);
         }
       } else {
-        if (textIndex - 1 < 0) {
-          const nextArrayIndex = (arrayIndex + 1) % textArray.length;
-          setArrayIndex(nextArrayIndex);
-          setTextIndex(0);
+        if (currentTextIndex - 1 < 0) {
+          const nextArrayIndex = (currentArrayIndex + 1) % textArray.length;
+          setCurrentArrayIndex(nextArrayIndex);
+          setCurrentTextIndex(0);
           setIsDeleting(false);
         } else {
-          setTextIndex(textIndex - 1);
+          setCurrentTextIndex(currentTextIndex - 1);
         }
       }
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, [arrayIndex, isDeleting, text, textIndex, textArray.length]);
+  }, [currentArrayIndex, isDeleting, text, currentTextIndex, textArray.length]);
 
   useEffect(() => {
     const cursorInterval = setInterval(() => {
@@ -46,7 +46,7 @@ const Typed = ({ textArray }: TypedProps) => {
 
   return (
     <div className="font-bold inline-flex justify-center items-center">
-      {text.substring(0, textIndex)}
+      {text.substring(0, currentTextIndex)}
       <div
         className={`relative ml-1 inline-block ${
           isShowCursor ? "h-9" : "h-0"
