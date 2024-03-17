@@ -11,10 +11,10 @@ const Hero = () => {
           Grow with data.
         </h1>
         <div>
-          <p className="md:text-5xl sm:text-4xl text-xl font-bold">
+          <div className="md:text-5xl sm:text-4xl text-xl font-bold">
             Fast, flexible financing for{" "}
             <Typed textArray={["BTB", "BTC", "SASS"]} />
-          </p>
+          </div>
         </div>
       </div>
     </div>
